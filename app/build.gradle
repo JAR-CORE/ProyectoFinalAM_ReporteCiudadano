@@ -1,0 +1,59 @@
+plugins {
+    alias(libs.plugins.android.application)
+}
+
+android {
+    namespace 'com.armando.am_proyectofinal'
+    compileSdk 36
+
+    defaultConfig {
+        applicationId "com.armando.am_proyectofinal"
+        minSdk 24
+        targetSdk 36
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_11
+        targetCompatibility JavaVersion.VERSION_11
+    }
+}
+
+kotlin {
+    jvmToolchain 11
+}
+
+dependencies {
+    // Dependencias ya existentes (usando catálogo)
+    implementation libs.androidx.appcompat
+    implementation libs.androidx.core.ktx
+    implementation libs.material
+    testImplementation libs.junit
+    androidTestImplementation libs.androidx.espresso.core
+    androidTestImplementation libs.androidx.junit
+
+    // Navegación con Bottom Navigation
+    implementation "androidx.navigation:navigation-fragment-ktx:2.7.6"
+    implementation "androidx.navigation:navigation-ui-ktx:2.7.6"
+
+    // Retrofit para consumo de API
+    implementation "com.squareup.retrofit2:retrofit:2.9.0"
+    implementation "com.squareup.retrofit2:converter-gson:2.9.0"
+    implementation "com.squareup.okhttp3:logging-interceptor:4.11.0"
+
+    // Corrutinas (necesarias para las llamadas asíncronas)
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.3"
+
+    // Activity y Fragment KTX (útiles para extensiones)
+    implementation "androidx.activity:activity-ktx:1.8.2"
+    implementation "androidx.fragment:fragment-ktx:1.6.2"
+}

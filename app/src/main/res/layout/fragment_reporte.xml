@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <EditText
+            android:id="@+id/et_nombre"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Nombre del interesado" />
+
+        <AutoCompleteTextView
+            android:id="@+id/ac_colonia"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Colonia"
+            android:completionThreshold="1" />
+
+        <EditText
+            android:id="@+id/et_direccion"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Dirección" />
+
+        <EditText
+            android:id="@+id/et_celular"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Celular"
+            android:inputType="phone" />
+
+        <EditText
+            android:id="@+id/et_correo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Correo electrónico"
+            android:inputType="textEmailAddress" />
+
+        <AutoCompleteTextView
+            android:id="@+id/ac_tipo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Tipo de reporte"
+            android:completionThreshold="1" />
+
+        <EditText
+            android:id="@+id/et_descripcion"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Descripción"
+            android:minLines="3"
+            android:gravity="top" />
+
+        <ImageView
+            android:id="@+id/image_preview"
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            android:layout_marginTop="8dp"
+            android:scaleType="centerCrop"
+            android:background="@android:drawable/picture_frame" />
+
+        <Button
+            android:id="@+id/btn_foto"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Tomar/Seleccionar foto" />
+
+        <Button
+            android:id="@+id/btn_enviar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Enviar reporte"
+            android:layout_marginTop="8dp" />
+    </LinearLayout>
+</ScrollView>

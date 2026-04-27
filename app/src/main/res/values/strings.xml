@@ -1,0 +1,6 @@
+<resources>
+    <string name="app_name">Reporte Ciudadano</string>
+    <string name="contacto_direccion">Plaza Principal, Guaymas, Sonora</string>
+    <string name="contacto_email">reportes@guaymas.gob.mx</string>
+    <string name="contacto_telefono">6221000000</string>
+</resources>

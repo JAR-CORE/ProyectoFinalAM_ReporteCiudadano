@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    android:orientation="vertical"
+    android:background="#1565C0">
+
+    <!-- Espacio superior -->
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1" />
+
+    <!-- Emoji del caballo con birrete -->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="🎓🐴"
+        android:textSize="80sp"
+        android:gravity="center" />
+
+    <!-- Título principal -->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Reporte Ciudadano"
+        android:textSize="28sp"
+        android:textStyle="bold"
+        android:textColor="#FFFFFF"
+        android:layout_marginTop="16dp" />
+
+    <!-- Línea divisoria -->
+    <View
+        android:layout_width="60dp"
+        android:layout_height="3dp"
+        android:background="#FFD54F"
+        android:layout_marginTop="16dp" />
+
+    <!-- Hecho por -->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Hecho por: 216616"
+        android:textSize="14sp"
+        android:textColor="#BBDEFB"
+        android:layout_marginTop="24dp" />
+
+    <!-- Proyecto Final -->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Proyecto Final"
+        android:textSize="16sp"
+        android:textColor="#90CAF9"
+        android:layout_marginTop="4dp" />
+
+    <!-- Aplicaciones Móviles -->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Aplicaciones Móviles"
+        android:textSize="14sp"
+        android:textColor="#64B5F6"
+        android:layout_marginTop="2dp" />
+
+    <!-- Espacio inferior -->
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1" />
+
+    <!-- Texto de carga -->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Cargando..."
+        android:textSize="12sp"
+        android:textColor="#E3F2FD"
+        android:layout_marginBottom="32dp" />
+
+</LinearLayout>
