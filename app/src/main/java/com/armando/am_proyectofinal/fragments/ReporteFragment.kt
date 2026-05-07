@@ -1,17 +1,19 @@
 package com.armando.am_proyectofinal.fragments
 
+import android.Manifest
 import android.app.AlertDialog
+import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.net.Uri
 import android.os.Bundle
-import android.os.Environment
 import android.util.Base64
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.core.content.ContextCompat
 import androidx.core.content.FileProvider
 import androidx.fragment.app.Fragment
 import com.armando.am_proyectofinal.R
@@ -23,7 +25,6 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import java.io.ByteArrayOutputStream
 import java.io.File
-import java.io.FileOutputStream
 
 class ReporteFragment : Fragment(R.layout.fragment_reporte) {
 
@@ -32,6 +33,16 @@ class ReporteFragment : Fragment(R.layout.fragment_reporte) {
     private lateinit var pickImageLauncher: androidx.activity.result.ActivityResultLauncher<String>
     private lateinit var currentPhotoUri: Uri
     private lateinit var imgView: ImageView
+
+    private val requestCameraPermission = registerForActivityResult(
+        ActivityResultContracts.RequestPermission()
+    ) { granted ->
+        if (granted) {
+            tomarFoto()
+        } else {
+            Toast.makeText(context, "Se necesita permiso de cámara", Toast.LENGTH_SHORT).show()
+        }
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -59,7 +70,7 @@ class ReporteFragment : Fragment(R.layout.fragment_reporte) {
 
         takePictureLauncher = registerForActivityResult(ActivityResultContracts.TakePicture()) { success ->
             if (success) {
-                imgView.setImageURI(null) // refresh
+                imgView.setImageURI(null)
                 imgView.setImageURI(currentPhotoUri)
                 imagenBase64 = encodeImageToBase64(currentPhotoUri)
             }
@@ -79,9 +90,22 @@ class ReporteFragment : Fragment(R.layout.fragment_reporte) {
         AlertDialog.Builder(requireContext())
             .setTitle("Seleccionar imagen")
             .setItems(opciones) { _, which ->
-                if (which == 0) tomarFoto() else elegirDeGaleria()
+                if (which == 0) {
+                    verificarPermisoCamara()
+                } else {
+                    elegirDeGaleria()
+                }
             }
             .show()
+    }
+
+    private fun verificarPermisoCamara() {
+        if (ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.CAMERA)
+            == PackageManager.PERMISSION_GRANTED) {
+            tomarFoto()
+        } else {
+            requestCameraPermission.launch(Manifest.permission.CAMERA)
+        }
     }
 
     private fun tomarFoto() {
@@ -101,8 +125,9 @@ class ReporteFragment : Fragment(R.layout.fragment_reporte) {
             val bitmap = BitmapFactory.decodeStream(inputStream)
             val resized = Bitmap.createScaledBitmap(bitmap!!, 800, 800, true)
             val baos = ByteArrayOutputStream()
-            resized.compress(Bitmap.CompressFormat.JPEG, 70, baos)
-            Base64.encodeToString(baos.toByteArray(), Base64.NO_WRAP)
+            resized.compress(Bitmap.CompressFormat.PNG, 100, baos)
+            val base64 = Base64.encodeToString(baos.toByteArray(), Base64.NO_WRAP)
+            "data:image/png;base64,$base64"
         } catch (e: Exception) {
             e.printStackTrace()
             null
@@ -128,7 +153,6 @@ class ReporteFragment : Fragment(R.layout.fragment_reporte) {
 
         CoroutineScope(Dispatchers.IO).launch {
             try {
-                // Se envía el reporte usando los parámetros definidos en ApiService (incluyendo el Header por defecto)
                 val response = RetrofitClient.apiService.enviarReporte(reporte = reporte)
                 withContext(Dispatchers.Main) {
                     if (response.isSuccessful) {
